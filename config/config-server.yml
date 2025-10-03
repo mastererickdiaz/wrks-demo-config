@@ -12,7 +12,7 @@ spring:
           default-label: main
           search-paths: config
           timeout: 5
-          cloneOnStart: true
+          clone-on-start: true
 
 logging:
   level:
