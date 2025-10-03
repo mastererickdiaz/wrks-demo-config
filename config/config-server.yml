@@ -4,28 +4,18 @@ server:
 spring:
   application:
     name: config-server
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health,info,metrics,env,refresh
-  endpoint:
-    health:
-      show-details: always
-      show-components: always
-      probes:
-        enabled: true
-  health:
-    livenessstate:
-      enabled: true
-    readinessstate:
-      enabled: true
-      
-spring:
   cloud:
     config:
       server:
         git:
-          timeout: 10
-          clone-on-start: true
+          uri: https://github.com/mastererickdiaz/wrks-demo-config
+          default-label: main
+          search-paths: config
+          timeout: 5
+          cloneOnStart: true
+
+logging:
+  level:
+    com.netflix.eureka: INFO
+    com.netflix.discovery: INFO
+    org.springframework.cloud.commons.util: DEBUG
