@@ -1,7 +1,5 @@
 # Configuración común para todos los servicios
 spring:
-  application:
-    name: common-config
   datasource:
     url: ${DB_URL:jdbc:postgresql://localhost:5432/mydb}
     username: ${DB_USER:user}
