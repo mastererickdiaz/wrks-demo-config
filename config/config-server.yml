@@ -1,6 +1,10 @@
 server:
   port: 8888
 
+spring:
+  application:
+    name: config-server
+
 management:
   endpoints:
     web:
@@ -24,3 +28,4 @@ spring:
       server:
         git:
           timeout: 10
+          clone-on-start: true

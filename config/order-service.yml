@@ -1,3 +1,10 @@
+spring:
+  application:
+    name: order-service
+
+server:
+  port: 8080
+
 eureka:
   client:
     service-url:
@@ -6,7 +13,7 @@ eureka:
       enabled: true
   instance:
     prefer-ip-address: true
-    instance-id: ${spring.application.name}:${random.uuid}
+    instance-id: ${spring.application.name}:${spring.application.instance-id:${random.value}}
 
 feign:
   client:
@@ -27,8 +34,7 @@ resilience4j:
         automatic-transition-from-open-to-half-open-enabled: true
         wait-duration-in-open-state: 10s
         failure-rate-threshold: 50
-        event-consumer-buffer-size: 10
-        
+
   retry:
     instances:
       userService:
@@ -44,7 +50,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: health,info,metrics,circuitbreakers
+        include: health,info,metrics,circuitbreakers,env
   endpoint:
     health:
       show-details: always
