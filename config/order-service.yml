@@ -5,6 +5,8 @@ spring:
   application:
     name: order-service
   cloud:
-    openfeign:
-      circuitbreaker:
+    vault:
+      kv:
+        application-name: order-service
+      generic:
         enabled: true

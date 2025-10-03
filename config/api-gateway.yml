@@ -7,6 +7,11 @@ spring:
   config:
     import: optional:configserver:http://config-server:8888
   cloud:
+    vault:
+      kv:
+        application-name: api-gateway
+      generic:
+        enabled: true
     gateway:
       discovery:
         locator:

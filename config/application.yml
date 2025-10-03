@@ -1,4 +1,17 @@
 # Configuración común para todos los servicios
+spring:
+  cloud:
+    vault:
+      uri: http://vault:8200
+      token: myroot
+      authentication: TOKEN
+      kv:
+        enabled: true
+        backend: secret
+      fail-fast: false
+      connection-timeout: 5000
+      read-timeout: 15000
+      
 eureka:
   client:
     service-url:
