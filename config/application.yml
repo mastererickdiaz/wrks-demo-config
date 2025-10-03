@@ -1,0 +1,18 @@
+# Configuración común para todos los servicios
+spring:
+  application:
+    name: common-config
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/mydb}
+    username: ${DB_USER:user}
+    password: ${DB_PASSWORD:pass}
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_URL:http://localhost:8761/eureka}
+
+logging:
+  level:
+    com.example: DEBUG
+    org.springframework.cloud: INFO
