@@ -7,11 +7,14 @@ spring:
       authentication: TOKEN
       kv:
         enabled: true
-        backend: secret
+        backend: kv
       fail-fast: false
-      connection-timeout: 5000
-      read-timeout: 15000
-      
+      connection-timeout: 10000
+      read-timeout: 30000
+      config:
+        lifecycle:
+          enabled: false
+
 eureka:
   client:
     service-url:
