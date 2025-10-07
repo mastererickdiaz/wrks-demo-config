@@ -13,7 +13,7 @@ spring:
       generic:
         enabled: true
   datasource:
-    url: ${database.url};DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    url: ${database.url}
     driver-class-name: org.h2.Driver
     username: sa
     password: ${database.password}
