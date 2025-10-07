@@ -6,10 +6,13 @@ spring:
     name: user-service
   cloud:
     vault:
+      uri: http://vault:8200
+      token: myroot
       kv:
-        application-name: user-service
-      generic:
         enabled: true
+        backend-version: 2
+      fail-fast: false
+      authentication: TOKEN
   datasource:
     url: ${database.url}
     driver-class-name: org.h2.Driver
