@@ -4,6 +4,9 @@ server:
 spring:
   application:
     name: api-gateway
+  config:
+    import: optional:configserver:http://config-server:8888
+  cloud:
     vault:
       uri: http://vault:8200
       token: myroot
@@ -12,7 +15,6 @@ spring:
         backend-version: 2
       fail-fast: false
       authentication: TOKEN
-  cloud:
     config:
       request-connect-timeout: 10000
       request-read-timeout: 30000
@@ -40,17 +42,3 @@ spring:
             - Path=/api/orders/**
           filters:
             - RewritePath=/api/orders/(?<segment>.*), /$\{segment}
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
-  endpoint:
-    health:
-      show-details: always
-
-logging:
-  level:
-    org.springframework.cloud.config: DEBUG
-    org.springframework.web.client: DEBUG
