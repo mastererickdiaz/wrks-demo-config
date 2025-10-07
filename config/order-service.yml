@@ -6,7 +6,10 @@ spring:
     name: order-service
   cloud:
     vault:
+      uri: http://vault:8200
+      token: myroot
       kv:
-        application-name: order-service
-      generic:
         enabled: true
+        backend-version: 2
+      fail-fast: false
+      authentication: TOKEN
