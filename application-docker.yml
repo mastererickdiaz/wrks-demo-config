@@ -2,21 +2,3 @@ spring:
   config:
     activate:
       on-profile: docker
-
-eureka:
-  client:
-    service-url:
-      defaultZone: http://eureka-user:eureka-pass@discovery-server:8761/eureka/
-    registry-fetch-interval-seconds: 10
-    initial-instance-info-replication-interval-seconds: 10
-  instance:
-    prefer-ip-address: true
-    lease-renewal-interval-in-seconds: 10
-    lease-expiration-duration-in-seconds: 30
-
-logging:
-  level:
-    org.springframework.cloud.config: DEBUG
-    org.springframework.web.client: DEBUG
-    org.springframework.cloud.vault: DEBUG
-    org.springframework.vault: TRACE
