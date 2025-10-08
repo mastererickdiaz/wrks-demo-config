@@ -2,17 +2,20 @@ server:
   port: 8081
 
 spring:
-  config:
-    import: "classpath:application-eureka.yml"
   application:
     name: user-service
   cloud:
     vault:
+      uri: http://vault:8200
+      token: myroot
       kv:
         enabled: true
         backend-version: 2
       fail-fast: false
       authentication: TOKEN
+    openfeign:
+      circuitbreaker:
+        enabled: true
   datasource:
     url: ${database.url}
     driver-class-name: org.h2.Driver
