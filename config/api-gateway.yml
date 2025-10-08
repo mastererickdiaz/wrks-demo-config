@@ -4,15 +4,6 @@ server:
 spring:
   application:
     name: api-gateway
-  cloud:
-    vault:
-      uri: http://vault:8200
-      token: myroot
-      kv:
-        enabled: true
-        backend-version: 2
-      fail-fast: false
-      authentication: TOKEN
     config:
       request-connect-timeout: 10000
       request-read-timeout: 30000
