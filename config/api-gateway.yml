@@ -24,13 +24,13 @@ spring:
           predicates:
             - Path=/api/users/**
           filters:
-            - RewritePath=/api/users/(?<segment>.*), /$\{segment}
+            - RewritePath=/api/users(?<segment>/?.*), /$\{segment}
         - id: order-service
           uri: lb://order-service
           predicates:
             - Path=/api/orders/**
           filters:
-            - RewritePath=/api/orders/(?<segment>.*), /$\{segment}
+            - RewritePath=/api/orders(?<segment>/?.*), /$\{segment}
   data:
     redis:
       host: redis
