@@ -9,6 +9,38 @@ spring:
       discovery:
         locator:
           enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: user-service
+          uri: lb://user-service
+          predicates:
+            - Path=/api/users/**
+          filters:
+            - StripPrefix=1
+        
+        - id: order-service
+          uri: lb://order-service
+          predicates:
+            - Path=/api/orders/**
+          filters:
+            - StripPrefix=1
+            
+        # Ruta para Swagger UI del user-service
+        - id: user-service-swagger
+          uri: lb://user-service
+          predicates:
+            - Path=/user-service/v3/api-docs/**
+          filters:
+            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+            
+        # Ruta para Swagger UI del order-service
+        - id: order-service-swagger
+          uri: lb://order-service
+          predicates:
+            - Path=/order-service/v3/api-docs/**
+          filters:
+            - RewritePath=/order-service/(?<segment>.*), /$\{segment}
+  
   data:
     redis:
       host: redis
@@ -17,11 +49,17 @@ spring:
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
+    urls:
+      - name: User Service
+        url: /user-service/v3/api-docs
+      - name: Order Service
+        url: /order-service/v3/api-docs
   api-docs:
     path: /v3/api-docs
 
 logging:
   level:
-    org.springframework.cloud.gateway: TRACE
+    org.springframework.cloud.gateway: DEBUG
     org.springframework.web: DEBUG
     com.netflix.eureka: DEBUG
+    reactor.netty: DEBUG
