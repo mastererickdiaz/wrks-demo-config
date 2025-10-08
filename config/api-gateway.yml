@@ -4,6 +4,7 @@ server:
 spring:
   application:
     name: api-gateway
+  
   cloud:
     gateway:
       discovery:
@@ -15,51 +16,73 @@ spring:
           uri: lb://user-service
           predicates:
             - Path=/api/users/**
-          filters:
-            - StripPrefix=1
         
         - id: order-service
           uri: lb://order-service
           predicates:
             - Path=/api/orders/**
-          filters:
-            - StripPrefix=1
-            
-        # Ruta para Swagger UI del user-service
-        - id: user-service-swagger
-          uri: lb://user-service
-          predicates:
-            - Path=/user-service/v3/api-docs/**
-          filters:
-            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
-            
-        # Ruta para Swagger UI del order-service
-        - id: order-service-swagger
-          uri: lb://order-service
-          predicates:
-            - Path=/order-service/v3/api-docs/**
-          filters:
-            - RewritePath=/order-service/(?<segment>.*), /$\{segment}
+    
+    vault:
+      uri: http://vault:8200
+      token: myroot
+      host: vault
+      port: 8200
+      scheme: http
+      fail-fast: false
+      kv:
+        enabled: true
+        backend-version: 2
+      authentication: TOKEN
   
   data:
     redis:
       host: redis
       port: 6379
 
+eureka:
+  client:
+    eureka-server-connect-timeout-seconds: 30
+    eureka-server-read-timeout-seconds: 30
+    service-url:
+      defaultZone: http://eureka-user:eureka-pass@discovery-server:8761/eureka/
+    healthcheck:
+      enabled: true
+    register-with-eureka: true
+    fetch-registry: true
+    registry-fetch-interval-seconds: 10
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${random.uuid}
+    lease-renewal-interval-in-seconds: 10
+    lease-expiration-duration-in-seconds: 30
+
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
-    urls:
-      - name: User Service
-        url: /user-service/v3/api-docs
-      - name: Order Service
-        url: /order-service/v3/api-docs
   api-docs:
     path: /v3/api-docs
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,gateway
+  endpoint:
+    health:
+      show-details: always
+    gateway:
+      enabled: true
+    metrics:
+      enabled: true
+      tags:
+        uri: '{host}' 
 
 logging:
   level:
     org.springframework.cloud.gateway: DEBUG
+    org.springframework.cloud.gateway.handler.RoutePredicateHandlerMapping: TRACE
+    org.springframework.cloud.gateway.route.RouteDefinitionRouteLocator: DEBUG
     org.springframework.web: DEBUG
     com.netflix.eureka: DEBUG
     reactor.netty: DEBUG
+    org.springframework.cloud: DEBUG
