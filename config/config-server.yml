@@ -12,15 +12,15 @@ spring:
           default-label: main
           search-paths: config
           timeout: 30
-          clone-on-start: true
-          force-pull: true
+          cloneOnStart: true
 
-server:
-  connection-timeout: 30000
-  servlet:
-    session:
-      timeout: 30m
-
-logging:
-  level:
-    org.springframework.cloud.config.server: INFO
+eureka:  
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://eureka-user:eureka-pass@discovery-server:8761/eureka/
+  instance:
+    hostname: config-server
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${random.uuid}

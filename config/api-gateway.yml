@@ -20,19 +20,7 @@ spring:
         - id: order-service
           uri: lb://order-service
           predicates:
-            - Path=/api/orders/**
-    
-    vault:
-      uri: http://vault:8200
-      token: myroot
-      host: vault
-      port: 8200
-      scheme: http
-      fail-fast: false
-      kv:
-        enabled: true
-        backend-version: 2
-      authentication: TOKEN
+            - Path=/api/orders/**    
   
   data:
     redis:
