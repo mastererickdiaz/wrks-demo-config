@@ -20,7 +20,7 @@ spring:
         - id: order-service
           uri: lb://order-service
           predicates:
-            - Path=/api/orders/**    
+            - Path=/api/orders/**
   
   data:
     redis:
