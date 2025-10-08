@@ -2,6 +2,8 @@ server:
   port: 8082
 
 spring:
+  config:
+    import: "classpath:application-eureka.yml"
   application:
     name: order-service
   cloud:
@@ -28,7 +30,7 @@ feign:
 resilience4j:
   circuitbreaker:
     instances:
-      userService:
+      user-service:
         register-health-indicator: true
         sliding-window-size: 10
         minimum-number-of-calls: 5
@@ -40,13 +42,13 @@ resilience4j:
         
   retry:
     instances:
-      userService:
+      user-service:
         max-attempts: 3
         wait-duration: 2s
 
   timelimiter:
     instances:
-      userService:
+      user-service:
         timeout-duration: 5s
 
 management:

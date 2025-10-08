@@ -2,12 +2,12 @@ server:
   port: 8081
 
 spring:
+  config:
+    import: "classpath:application-eureka.yml"
   application:
     name: user-service
   cloud:
     vault:
-      uri: http://vault:8200
-      token: myroot
       kv:
         enabled: true
         backend-version: 2
