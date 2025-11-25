@@ -4,7 +4,7 @@ server:
 spring:
   application:
     name: api-gateway
-  
+
   cloud:
     gateway:
       discovery:
@@ -16,12 +16,15 @@ spring:
           uri: lb://user-service
           predicates:
             - Path=/api/users/**
-        
         - id: order-service
           uri: lb://order-service
           predicates:
             - Path=/api/orders/**
-  
+        - id: product-service
+          uri: lb://product-service
+          predicates:
+            - Path=/api/products/**
+
   data:
     redis:
       host: redis
@@ -63,7 +66,7 @@ management:
     metrics:
       enabled: true
       tags:
-        uri: '{host}' 
+        uri: "{host}"
 
 logging:
   level:
