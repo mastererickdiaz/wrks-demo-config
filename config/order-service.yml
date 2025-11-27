@@ -37,7 +37,7 @@ resilience4j:
         wait-duration-in-open-state: 10s
         failure-rate-threshold: 50
         event-consumer-buffer-size: 10
-        
+
   retry:
     instances:
       user-service:
