@@ -7,15 +7,19 @@ spring:
   cloud:
     vault:
       uri: http://vault:8200
-      token: myroot
+      token: order-service-token
       kv:
         enabled: true
-        backend-version: 2
+        backend: kv
+        profile-separator: /
+        application-name: order-service
       fail-fast: false
       authentication: TOKEN
     openfeign:
       circuitbreaker:
         enabled: true
+  config:
+    import: "vault://"
 
 feign:
   client:

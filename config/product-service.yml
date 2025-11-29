@@ -7,10 +7,12 @@ spring:
   cloud:
     vault:
       uri: http://vault:8200
-      token: myroot
+      token: product-service-token
       kv:
         enabled: true
-        backend-version: 2
+        backend: kv
+        profile-separator: /
+        application-name: product-service
       fail-fast: false
       authentication: TOKEN
     openfeign:
