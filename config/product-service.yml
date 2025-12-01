@@ -7,7 +7,7 @@ spring:
   cloud:
     vault:
       uri: http://vault:8200
-      token: product-service-token
+      token: ${VAULT_TOKEN:product-service-token}
       kv:
         enabled: true
         backend: kv
