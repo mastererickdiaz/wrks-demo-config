@@ -1,25 +1,24 @@
 server:
-  port: 8081
+  port: 8083
 
 spring:
   application:
     name: user-service
+  config:
+    import: "vault://"
   cloud:
     vault:
       uri: http://vault:8200
       token: ${VAULT_TOKEN:user-service-token}
+      fail-fast: true
+      authentication: TOKEN
       kv:
         enabled: true
         backend: kv
         profile-separator: /
         application-name: user-service
-      fail-fast: false
-      authentication: TOKEN
-    openfeign:
-      circuitbreaker:
-        enabled: true
   datasource:
-    url: jdbc:h2:mem:userdb
+    url: ${database.url}
     driver-class-name: org.h2.Driver
     username: ${database.username}
     password: ${database.password}

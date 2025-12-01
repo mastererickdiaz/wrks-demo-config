@@ -4,20 +4,19 @@ server:
 spring:
   application:
     name: product-service
+  config:
+    import: "vault://"
   cloud:
     vault:
       uri: http://vault:8200
       token: ${VAULT_TOKEN:product-service-token}
+      fail-fast: true
+      authentication: TOKEN
       kv:
         enabled: true
         backend: kv
         profile-separator: /
         application-name: product-service
-      fail-fast: false
-      authentication: TOKEN
-    openfeign:
-      circuitbreaker:
-        enabled: true
   datasource:
     url: ${database.url}
     driver-class-name: org.h2.Driver
